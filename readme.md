@@ -21,7 +21,9 @@ http://localhost:8080/cxf-rest
 Then add the service and operation name. i.e.
 
 /hello/greet
+
 /hello/sayhello
+
 /hello/submit
 
 There is an integration test which runs an http request against each URL.
