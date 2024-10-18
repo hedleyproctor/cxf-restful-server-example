@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:cxf="http://cxf.apache.org/jaxrs"
+       xsi:schemaLocation="
+       http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans.xsd
+       http://cxf.apache.org/jaxrs
+       http://cxf.apache.org/schemas/jaxrs.xsd">
+
+    <import resource="classpath:META-INF/cxf/cxf.xml" />
+    <import resource="classpath:META-INF/cxf/cxf-servlet.xml" />
+
+    <bean id="helloWorldRestService" class="org.example.HelloWorldRestServiceImpl" />
+
+    <!-- By default, when CXF starts a server it starts an instance of the Jetty java web server. -->
+    <!-- The endpoint for a CXF operation is composed of three sections: -->
+    <!-- 1. base URL - defined here -->
+    <!-- 2. service path - defined by the @Path annotation at the top of your service class -->
+    <!-- 3. operation path - defined by the @Path annotation on each method -->
+    <cxf:server id="helloServer" address="http://localhost:8080/cxf-rest">
+        <cxf:serviceBeans>
+            <ref bean="helloWorldRestService" />
+        </cxf:serviceBeans>
+        <cxf:providers>
+            <bean class="com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider" />
+        </cxf:providers>
+    </cxf:server>
+
+</beans>
